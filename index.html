@@ -1,0 +1,32 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>Todo apps</title>
+    <link rel="stylesheet" href="">
+</head>
+<body>
+    <div id="todoapp">
+        <header>
+            <h1 >Todos</h1>
+            <input type="text" id="new-todo" placeholder="what needs to be done?">
+        </header>  
+        <section>
+            <input type="checkbox" id="toggle-all">
+            <label for="toggle-all">Mark all as  complete</label>
+            <ul id="todo-list">
+            </ul> 
+        </section>
+        <footer>
+            <a id="clear-completd" >Clear completed</a>
+            <div id="todo-count">
+                
+            </div>
+        </footer>
+        <div id="instruction">
+           Double-click to edit a todo 
+        </div>
+        <script  data-main="js/main" src="js/libs/require/require.js"></script>
+    </div>
+</body>
+</html>
