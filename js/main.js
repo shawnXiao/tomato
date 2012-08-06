@@ -1,4 +1,16 @@
 require.config({
+    shim: {
+        'underscore': {
+            exports: '_'
+        },
+        'backbone': {
+            deps: [
+                'underscore',
+                'jquery'
+            ],
+            exports: 'Backbone'
+        }
+    },
     paths: {
         jquery: 'libs/jquery/jquery-min',
         underscore: 'libs/underscore/underscore-min',
@@ -8,6 +20,12 @@ require.config({
     }
 });
 
-require(['views/app'], function (AppView) {
+require([
+    'views/app',
+    'routers/router'
+], function (AppView, Workspace) {
+    //Initialize routing 
+    console.log("load in");
+    var workspace = new Workspace();
     var app_view = new AppView();
 });
