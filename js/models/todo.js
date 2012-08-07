@@ -22,4 +22,5 @@ define([
             this.save({done: !this.get("done")});
         }
     });
+    return TodoModel;
 });

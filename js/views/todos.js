@@ -2,16 +2,15 @@ define([
     'jquery',
     'underscore',
     'backbone',
-    'handlebars',
     'text!templates/todos.html',
     'common'
-], function ($, _, Backbone, hbs,  todosTemplate, Common) {
+], function ($, _, Backbone, todosTemplate, Common) {
     
     var TodoView = Backbone.View.extend({
 
         tagName: 'li',
 
-        template: hbs.compile(todosTemplate),
+        template:todosTemplate,
 
         //The Dom events specific to an item
         events: {
@@ -22,8 +21,8 @@ define([
             'blur .edit': 'close'
         },
         initialize: function () {
-            this.model.on('change', this.render, this);
-            this.model.on('destroy', this.remove, this);
+            this.model.bind('change', this.render, this);
+            this.model.bind('destroy', this.remove, this);
         },
     });
 

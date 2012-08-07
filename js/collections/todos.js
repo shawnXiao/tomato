@@ -3,6 +3,7 @@ define([
     'backbone',
     'models/todo'
 ], function (_, Backbone, Todo) {
+
     var TodosCollection = Backbone.Collection.extend({
 
         model: Todo,
@@ -13,16 +14,16 @@ define([
 
         //Filter down the list of all todo items that
         //are finished
-        done: function () {
+        completed: function () {
             return this.filter(function (todo) {
-                return todo.get('done');
+                return todo.get('completed');
             });
         },
 
         //Filter down the list  to only todo itmes
         //that are still not finished
         remaining: function () {
-            return this.without.apply(this, this.done());
+            return this.without.apply(this, this.completed());
         },
 
         //we keep the Todos in sequential order,despite
@@ -41,5 +42,6 @@ define([
         }
     });
 
-    return new TodosCollection();
+    var Todos = new TodosCollection();
+    return Todos;
 });

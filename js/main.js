@@ -25,7 +25,6 @@ require([
     'routers/router'
 ], function (AppView, Workspace) {
     //Initialize routing 
-    console.log("load in");
     var workspace = new Workspace();
     var app_view = new AppView();
 });

@@ -2,12 +2,12 @@ define([
     'jquery',
     'underscore',
     'backbone',
-    'handlebars',
     'collections/todos',
     'views/todos',
-    'text!templates/stats.html'
-], function ($, _, Backbone, hbs, Todos, TodoView, statsTemplate) {
-    var AppView = Backbone.Viw.extend({
+    'text!templates/stats.html',
+    'common'
+], function ($, _, Backbone, Todos, TodoView, statsTemplate, Common) {
+    var AppView = Backbone.View.extend({
         
         //Instead of generating a new element,bind to
         //the existing skeleton of the App already
@@ -16,7 +16,7 @@ define([
 
         //Our template for the line of statistics at the 
         //bottom of the app
-        template: hbs.compile(statsTemplate),
+        template: statsTemplate,
 
         //Delegateed events for creating new items,
         //and clearing copleted ones.
@@ -31,16 +31,15 @@ define([
         //changed.Kick things off by loading any preexisting
         //todos that might be saved
         initialize: function () {
-            console.log("hajs");
             this.input = this.$('#new-todo');
             this.allCheckbox = this.$('#toggle-all')[0];
             this.$footer = this.$('#footer');
             this.$main = this.$('#main');
 
-            Todos.on('add', this.addAll, this);
-            Todos.on('reset', this.addAll, this);
-            Todos.on('change:completed', this.addAll, this);
-            Todos.on('all', this.render, this);
+            Todos.bind('add', this.addAll, this);
+            Todos.bind('reset', this.addAll, this);
+            Todos.bind('change:completed', this.addAll, this);
+            Todos.bind('all', this.render, this);
             Todos.fetch();
         },
 
@@ -93,9 +92,22 @@ define([
                 Todos.each(this.addOne, this);
                 break;
             }
+        },
+
+        createOnEnter: function (e) {
+            console.log("createOnenter");
+        },
+
+        clearCompleted: function () {
+            console.log("clearCompleted");
+        },
+        
+        toggleAllComplate: function () {
+            console.log("toggleAllComplate");
         }
 
     });
+
 
     return AppView;
 });
