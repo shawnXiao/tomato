@@ -2,11 +2,12 @@ define([
     'jquery',
     'underscore',
     'backbone',
+    'handlebars',
     'collections/todos',
     'views/todos',
     'text!templates/stats.html',
     'common'
-], function ($, _, Backbone, Todos, TodoView, statsTemplate, Common) {
+], function ($, _, Backbone, hds, Todos, TodoView, statsTemplate, Common) {
     var AppView = Backbone.View.extend({
         
         //Instead of generating a new element,bind to
@@ -16,7 +17,7 @@ define([
 
         //Our template for the line of statistics at the 
         //bottom of the app
-        template: statsTemplate,
+        template: hds.compile(statsTemplate),
 
         //Delegateed events for creating new items,
         //and clearing copleted ones.
@@ -94,8 +95,22 @@ define([
             }
         },
 
+        newAttributes: function () {
+            return {
+                title: this.input.val().trim(),
+                order: 1,
+                completed: false
+            };
+        },
+
         createOnEnter: function (e) {
             console.log("createOnenter");
+            if (e.which !== Common.ENTER_KEY || !this.input.val().trim()) {
+                return;
+            }
+
+            Todos.create(this.newAttributes());
+            this.input.val('');
         },
 
         clearCompleted: function () {

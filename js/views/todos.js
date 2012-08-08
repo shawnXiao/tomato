@@ -2,15 +2,16 @@ define([
     'jquery',
     'underscore',
     'backbone',
+    'handlebars',
     'text!templates/todos.html',
     'common'
-], function ($, _, Backbone, todosTemplate, Common) {
+], function ($, _, Backbone, hds, todosTemplate, Common) {
     
     var TodoView = Backbone.View.extend({
 
         tagName: 'li',
 
-        template:todosTemplate,
+        template: hds.compile(todosTemplate),
 
         //The Dom events specific to an item
         events: {
@@ -23,7 +24,7 @@ define([
         initialize: function () {
             this.model.bind('change', this.render, this);
             this.model.bind('destroy', this.remove, this);
-        },
+        }
     });
 
 

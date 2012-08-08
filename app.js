@@ -38,5 +38,21 @@ app.get('/api/todos', function (req, res) {
     });
 });
 
+app.post('/api/todos', function (req, res) {
+    var todo;
+    todo = new Todo({
+        text: req.body.text,
+        done: req.body.done,
+        order: req.body.order
+    });
+    console.log("todo: ", todo);
+    todo.save(function (err) {
+        if (!err) {
+            return console.log("created");
+        }
+    });
+    return res.send(todo);
+});
+
 app.listen(3000);
 console.log("listen 3000");
