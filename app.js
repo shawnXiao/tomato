@@ -6,9 +6,11 @@ var application_root = __dirname,
 var app =  new express();
 
 //model
-mongoose.connect('mongodb://localhost/test');
+//mongoose.connect('mongodb://localhost/test');
+var db = mongoose.createConnection('localhost', 'test1');
+db.on('error', console.error.bind(console, 'connection error'));
 
-var Todo = mongoose.model('Todo', new mongoose.Schema({
+var Todo = db.model('Todo', new mongoose.Schema({
     text: String,
     done: Boolean,
     order: Number
@@ -34,14 +36,16 @@ app.get('/todo', function (req, res) {
 
 app.get('/api/todos', function (req, res) {
     return Todo.find(function (err, todos) {
+        console.log(todos);
         return res.send(todos);
     });
 });
 
 app.post('/api/todos', function (req, res) {
     var todo;
+    console.log('req.body:', req.body);
     todo = new Todo({
-        text: req.body.text,
+        text: req.body.title,
         done: req.body.done,
         order: req.body.order
     });

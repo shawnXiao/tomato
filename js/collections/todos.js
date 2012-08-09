@@ -37,7 +37,7 @@ define([
         },
 
         //Todos are sorted by ther original insertion order
-        comparator: function () {
+        comparator: function (todo) {
             return todo.get('order');
         }
     });

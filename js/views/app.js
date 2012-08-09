@@ -109,16 +109,26 @@ define([
                 return;
             }
 
+            console.log(this.newAttributes());
             Todos.create(this.newAttributes());
             this.input.val('');
         },
 
         clearCompleted: function () {
-            console.log("clearCompleted");
+            _.each(Todos.completed(), function () {
+                todo.destroy();
+            });
+            return false;
         },
         
         toggleAllComplate: function () {
-            console.log("toggleAllComplate");
+            var completed = this.allCheckbox.checked;
+
+            Todos.each(function (todo) {
+                todo.save({
+                    'completed': completed
+                });
+            });
         }
 
     });
