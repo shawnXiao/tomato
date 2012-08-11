@@ -37,7 +37,7 @@ define([
             this.$footer = this.$('#footer');
             this.$main = this.$('#main');
 
-            Todos.bind('add', this.addAll, this);
+            Todos.bind('add', this.addOne, this);
             Todos.bind('reset', this.addAll, this);
             Todos.bind('change:completed', this.addAll, this);
             Todos.bind('all', this.render, this);

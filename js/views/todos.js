@@ -21,6 +21,7 @@ define([
             'keypress .edit': 'updateOnEnter',
             'blur .edit': 'close'
         },
+
         initialize: function () {
             this.model.bind('change', this.render, this);
             this.model.bind('destroy', this.remove, this);
@@ -62,7 +63,14 @@ define([
         },
 
         clear: function () {
+            console.log(this.model);
+            console.log("clear");
             this.model.destroy();
+        },
+
+        remove: function () {
+            console.log("remove");
+            $(this.el).remove();
         }
 
     });

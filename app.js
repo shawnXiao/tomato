@@ -3,7 +3,7 @@ var application_root = __dirname,
     path = require('path'),
     mongoose = require('mongoose');
 
-var app =  new express();
+var app = new express();
 
 //model
 //mongoose.connect('mongodb://localhost/test');
@@ -58,5 +58,16 @@ app.post('/api/todos', function (req, res) {
     return res.send(todo);
 });
 
+app.delete("/api/todos/:id", function () {
+    console.log("deleting");
+    return Todo.findById (req.params.id, function (err, todo) {
+        return todo.remove(function (err) {
+            if (!err) {
+                console.log("removed");
+                return res.send('');
+            }
+        });
+    });
+});
 app.listen(3000);
 console.log("listen 3000");
