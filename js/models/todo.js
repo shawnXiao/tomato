@@ -3,6 +3,7 @@ define([
     'backbone'
 ], function (_, Backbone) {
     var TodoModel = Backbone.Model.extend({
+        idAttribute: "_id",
         
         //Default attributes for the todo
         defaults: {

@@ -58,7 +58,7 @@ app.post('/api/todos', function (req, res) {
     return res.send(todo);
 });
 
-app.delete("/api/todos/:id", function () {
+app.delete("/api/todos/:id", function (req, res) {
     console.log("deleting");
     return Todo.findById (req.params.id, function (err, todo) {
         return todo.remove(function (err) {
@@ -69,5 +69,21 @@ app.delete("/api/todos/:id", function () {
         });
     });
 });
+
+app.put('/api/todos/:id', function (req, res) {
+    return Todo.findById(req.params.id, function (err, todo) {
+        todo.text = req.body.title;
+        todo.done = req.body.done;
+        todo.order = req.body.order;
+        
+        return todo.save(function (err) {
+            if (err) {
+                console.log("updated");
+            }
+            return res.send(todo);
+        });
+    });
+});
+
 app.listen(3000);
 console.log("listen 3000");
